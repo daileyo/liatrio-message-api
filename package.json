@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && dist",
     "serve": "concurrently -n \"TSC,JEST,NODEMON\" --prefix-colors \"cyan,gray,green\" \"tsc --watch\" \"jest --watch\" \"nodemon dist/index.js\"",
-    "test": "jest"
+    "test": "jest",
+    "test:ci" : "jest --ci --reporters='default' --reporters='./github-actions-reporter'"
   },
   "repository": {
     "type": "git",
