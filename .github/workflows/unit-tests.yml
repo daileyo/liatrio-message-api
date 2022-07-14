@@ -1,6 +1,10 @@
-name: Unit Tests CI
+name: 'Unit Tests CI'
 
-on: [push, pull_requests]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   test:
