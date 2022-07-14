@@ -20,6 +20,7 @@ app.get('/', (req: Request, res: Response, next) => {
     //next();
 });
 
+
 export const server = app.listen(PORT, () => console.log(`Running on ${PORT} ⚡`));
 
 
