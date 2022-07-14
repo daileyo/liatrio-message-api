@@ -31,7 +31,7 @@ jobs:
 
       # Runs Jest Unit tests
       - name: Run Unit tests
-      - uses: stefanoeb/jest-action@1.0.3
+        uses: stefanoeb/jest-action@1.0.3
       
       
       # Runs a set of commands using the runners shell
