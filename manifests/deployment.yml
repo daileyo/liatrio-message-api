@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: liatrio-message-api-deployment
+  labels:
+    app: liatrio-message-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liatrio-message-api
+  template:
+    metadata:
+      labels:
+        app: liatrio-message-api
+    spec:
+      containers:
+      - name: liatrio-message-api
+        image: acrliatrio/liatrio-app:latest
+        ports:
+        - containerPort: 4242
