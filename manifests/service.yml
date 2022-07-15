@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: service
+metadata:
+  name: liatrio-message-api-service
+spec:
+  selector:
+    app: liatrio-message-api
+  ports: 
+    - protocol: TCP
+      port: 80
+      targetPort: 4242
