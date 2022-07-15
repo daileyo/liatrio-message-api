@@ -1,0 +1,35 @@
+name: 'Build and Publish to Azure'
+
+env:
+  REGISTRY_NAME: acrliatrio
+  CLUSTER_NAME: aks-liatrio-cluster-00
+  CLUSTER_RESOURCE_GROUP: rg-liatrio-00
+  #NAMESPACE: {namespace-name}
+  APP_NAME: liatrio-app
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    
+    # Connect to Azure Container Registry (ACR)
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+        username: ${{ secret.AZURE_ACR_USERNAME }}
+        password: ${{ secret.AZURE_ACR_PASSWORD }}
+    
+    # Container build and push to a Azure Container Registry (ACR)
+    - run: |
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
+      working-directory: ./
