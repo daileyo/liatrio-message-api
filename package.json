@@ -4,10 +4,11 @@
   "description": "Messaging API for DevOps assessment and discussion",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc && dist",
-    "serve": "concurrently -n \"TSC,JEST,NODEMON\" --prefix-colors \"cyan,gray,green\" \"tsc --watch\" \"jest --watch\" \"nodemon dist/index.js\"",
+    "build": "rimraf dist && rimraf coverage && tsc",
+    "serve": "concurrently -n \"TSC,JEST,NODEMON\" --prefix-colors \"cyan,gray,green\" \"tsc --watch\" \"nodemon dist/index.js\"",
     "test": "jest",
-    "test:ci" : "jest --ci --reporters='default' --reporters='./github-actions-reporter'"
+    "test:ci": "jest --ci --reporters='default' --reporters='./github-actions-reporter'",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,8 @@
     "concurrently": "^7.2.2",
     "jest": "^28.1.3",
     "jest-cli": "^28.1.3",
+    "nodemon": "^2.0.19",
+    "rimraf": "^3.0.2",
     "ts-jest": "^28.0.6",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
