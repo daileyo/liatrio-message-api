@@ -28,12 +28,12 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_REPOSITORY }}
       - name: Debugging output
-        run: echo ${{ steps.meta.outputs.tags }}
+        run: echo ***** Debugging tags ${{ steps.meta.outputs.tags }} *****
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: liatrio-api:latest
           labels: ${{ steps.meta.outputs.labels }}  
