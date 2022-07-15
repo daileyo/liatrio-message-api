@@ -1,12 +1,5 @@
 name: 'Build and Publish to Azure'
 
-env:
-  REGISTRY_NAME: acrliatrio
-  CLUSTER_NAME: aks-liatrio-cluster-00
-  CLUSTER_RESOURCE_GROUP: rg-liatrio-00
-  #NAMESPACE: {namespace-name}
-  APP_NAME: liatrio-app
-
 on:
   push:
     branches: [ "main" ]
@@ -15,21 +8,76 @@ on:
 
   workflow_dispatch:
 
+env:
+  REGISTRY_NAME: acrliatrio
+  CLUSTER_NAME: aks-liatrio-cluster-00
+  CLUSTER_RESOURCE_GROUP: rg-liatrio-00
+  NAMESPACE: default
+  APP_NAME: liatrio-app
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
     - uses: actions/checkout@main
-    
+  
     # Connect to Azure Container Registry (ACR)
     - uses: azure/docker-login@v1
       with:
         login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
-        username: ${{ secret.AZURE_ACR_USERNAME }}
-        password: ${{ secret.AZURE_ACR_PASSWORD }}
+<<<<<<< HEAD
+        username: ${{ secret.AZURE_ACR_USERNAME }} 
+        password: ${{ secret.AZURE_ACR_PASSWORD }} 
+=======
+        username: ${{ secrets.AZURE_ACR_USERNAME }}
+        password: ${{ secrets.AZURE_ACR_PASSWORD }}
+>>>>>>> origin
     
     # Container build and push to a Azure Container Registry (ACR)
     - run: |
         docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
+<<<<<<< HEAD
+
+
+    # Set the target Azure Kubernetes Service (AKS) cluster. 
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+
+    # setup kubectl
+    - uses: azure/setup-kubectl@v2.0
+      with:
+        version: latest
+        id: install
+
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+    
+    # Create imagepullsecret for Azure Container registry (ACR)
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secret.AZURE_ACR_USERNAME }}
+        container-registry-password: ${{ secret.AZURE_ACR_PASSWORD }}
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
+    
+    # Deploy app to AKS
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        imagepullsecrets: |
+          ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
+=======
       working-directory: ./
+>>>>>>> origin
