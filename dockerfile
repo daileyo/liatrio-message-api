@@ -17,5 +17,5 @@ RUN apk add --update npm
 ENV PATH /liatrrio-api/node_modules/.bin:$PATH
 WORKDIR /liatrio-api
 COPY --from=liatrio-node-api /liatrio-node-api /liatrio-api
-EXPOSE 4242 4213 3000
+EXPOSE 4242
 CMD npm run start
