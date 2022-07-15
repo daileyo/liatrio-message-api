@@ -56,8 +56,8 @@ jobs:
     - uses: azure/k8s-create-secret@v1
       with:
         container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
-        container-registry-username: ${{ secret.AZURE_ACR_USERNAME }}
-        container-registry-password: ${{ secret.AZURE_ACR_PASSWORD }}
+        container-registry-username: ${{ secrets.AZURE_ACR_USERNAME }}
+        container-registry-password: ${{ secrets.AZURE_ACR_PASSWORD }}
         secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
     
@@ -72,5 +72,5 @@ jobs:
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}
-      working-directory: ./
+     # working-directory: ./
 
