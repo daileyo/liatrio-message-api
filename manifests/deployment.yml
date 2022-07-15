@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: liatrio-message-api
+  progressDeadlineSeconds: 1800
   replicas: 1
   template:
     metadata:
