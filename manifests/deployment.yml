@@ -5,10 +5,10 @@ metadata:
   labels:
     app: liatrio-message-api
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: liatrio-message-api
+  replicas: 1
   template:
     metadata:
       labels:
@@ -16,6 +16,23 @@ spec:
     spec:
       containers:
       - name: liatrio-message-api
-        image: acrliatrio/liatrio-app:latest
-        ports:
-        - containerPort: 4242
+        image: acrliatrio.azurecr.io/liatrio-app:latest
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            port: 4242
+            path: /
+        livenessProbe:
+          httpGet:
+            port: 4242
+            path: /
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+
+ 

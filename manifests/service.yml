@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: liatrio-message-api-service
 spec:
+  type: LoadBalancer
   selector:
     app: liatrio-message-api
   ports: 
