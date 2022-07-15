@@ -27,6 +27,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ secrets.DOCKERHUB_REPOSITORY }}
+      - name: Debugging output
+        run: echo ${{ steps.meta.outputs.tags }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
