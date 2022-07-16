@@ -1,6 +1,7 @@
 ![Build Tests](https://github.com/daileyo/liatrio-messag-api/actions/workflows/build.yml/badge.svg)
 ![Unit Tests](https://github.com/daileyo/liatrio-messag-api/actions/workflows/unit-tests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/daileyo/liatrio-message-api/branch/development/graph/badge.svg?token=62B00DRSAZ)](https://codecov.io/gh/daileyo/liatrio-message-api)
+[![Known Vulnerabilities](https://snyk.io/test/github/daileyo/liatrio-message-api/badge.svg)](https://snyk.io/test/github/daileyo/liatrio-message-api)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 # liatrio-message-api
