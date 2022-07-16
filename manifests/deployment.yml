@@ -18,22 +18,24 @@ spec:
       containers:
       - name: liatrio-message-api
         image: acrliatrio.azurecr.io/liatrio-app:test
+        ports: 
+        - containerPort: 4242
         imagePullPolicy: Always
-        readinessProbe:
-          httpGet:
-            port: 4242
-            path: /
-        livenessProbe:
-          httpGet:
-            port: 4242
-            path: /
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
+#        readinessProbe:
+#          httpGet:
+#            port: 4242
+#            path: /
+#        livenessProbe:
+#          httpGet:
+#            port: 4242
+#            path: /
+#        resources:
+#          requests:
+#            memory: "128Mi"
+#            cpu: "100m"
+#          limits:
+#            memory: "256Mi"
+#            cpu: "500m"
 
 
  
