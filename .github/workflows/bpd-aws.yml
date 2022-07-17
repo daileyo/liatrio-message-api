@@ -2,7 +2,13 @@ name: 'Build, publish, and deploy to AWS'
 
 on:
   workflow_dispatch:
-
+env:
+  AWS_APP: liatrio-app
+  AWS_REGION: us-west-1
+  AWS_D_REPOSITORY: daileyo
+  AWS_D_REGISTRY: liatrio-message-api
+  AWS_D_REGISTRY_TAG: latest
+  AWS_KUBE_VERSION: v1.22.0
 jobs:
   deploy:
     name: Deploy to AWS
