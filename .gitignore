@@ -1,3 +1,6 @@
+# local run secrets
+secrets
+
 # Logs
 logs
 *.log
