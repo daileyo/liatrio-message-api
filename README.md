@@ -3,6 +3,13 @@
 [![codecov](https://codecov.io/gh/daileyo/liatrio-message-api/branch/development/graph/badge.svg?token=62B00DRSAZ)](https://codecov.io/gh/daileyo/liatrio-message-api)
 [![Known Vulnerabilities](https://snyk.io/test/github/daileyo/liatrio-message-api/badge.svg)](https://snyk.io/test/github/daileyo/liatrio-message-api)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<br />
+<br />
+[![Website](https://img.shields.io/website?down_color=orange&down_message=inactive&label=API%3A%20Development&logo=appveyor&up_color=blue&up_message=online&url=http%3A%2F%2F20.22.99.252)](http://20.22.99.252)
+<br />
+[![Website](https://img.shields.io/website?down_color=orange&down_message=inactive&label=API%3A%20%20%20%20%20Production&logo=appveyor&up_color=blue&up_message=online&url=http%3A%2F%2Fa423b46ed243042dcb5935d52996d57c-361157068.us-west-1.elb.amazonaws.com)](http://a423b46ed243042dcb5935d52996d57c-361157068.us-west-1.elb.amazonaws.com/)
+
+
 
 # liatrio-message-api
 
