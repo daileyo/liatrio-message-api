@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liatrio-message-api-deployment
+  labels:
+    app: liatrio-message-api
+spec:
+  selector:
+    matchLabels:
+      app: liatrio-message-api
+  progressDeadlineSeconds: 1800
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: liatrio-message-api
+    spec:
+      containers:
+      - name: liatrio-message-api
+        image: 058570999465.dkr.ecr.us-west-1.amazonaws.com/liatrio-app
+        ports: 
+        - containerPort: 4242
+        imagePullPolicy: Always
+#        readinessProbe:
+#          httpGet:
+#            port: 4242
+#            path: /
+#        livenessProbe:
+#          httpGet:
+#            port: 4242
+#            path: /
+#        resources:
+#          requests:
+#            memory: "128Mi"
+#            cpu: "100m"
+#          limits:
+#            memory: "256Mi"
+#            cpu: "500m"
+
+
+ 
