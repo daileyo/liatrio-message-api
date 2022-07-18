@@ -18,14 +18,15 @@ Messaging API for DevOps assessment and discussion.  This application exposes an
 - a static message of "*Automate all things!*"
 - a timestamp consitent with the time of the request.
 
+## Dependencies
 
-## Hard Dependencies
-- npm
+The following is a general breadkown of the dependencies for working with this project.
 
-## Soft Dependencies
-- Act (from github actions)  **NOTE**:  *Only needed for running workflow actions locally*
-- Docker                     **NOTE**:  *Docker is not explicitly needed, but certain features from GitHub Actions and files will not be useable*
+|Application Development & Testing|Workflow Development & Testing|
+--- | --- |
+|Node.js<br/>Docker (optional but recommended)|Node.js<br/>Docker<br/>Act<br/>Azure CLI (az)<br/>AWS CLI (aws)
 
+This documentation assumes that the depencies listed will be installed prior to doing the specified type of development or testing.
 
 ## How to Setup Locally
 
@@ -36,7 +37,30 @@ git clone git@github.com:daileyo/liatrio-message-api.git
 ```
 3.  Run npm i
 
+### Workflow Scripts
+
+The workflow scripts are GitHub Action files for automating the following.  All actions can be executed in two ways:
+-   In Repository on GitHub
+-   Locally using Act, from GitHub
+
+The table below gives the general purpose and dependencies of each action.
+
+|GitHub Action File|Description|Blocking/None Blocking|Secret Variables|
+--- | --- | ---| ---|
+|build.yml|Build Smoke test|None Blocking|*none*|
+|unite-tests.yml|Executes project unit tests, and generates report|Blocking|*none*|
+|njscan.yml|Executes Node.js coding pattern scan|None Blocking|*none*|
+|docker-publish.yml|Builds and publishes image to Docker Hub|None Blocking|DOCKERHUB_USERNAME<br/>DOCKERHUB_AT<br/>DOCKERHUB_REPOSITORY|
+|build-azure.yml|Builds, publishes, and deploys project to Azure|None Blocking|AZURE_ACR_CREDS<br/>AZURE_ACR_PASSWORD<br/>AZURE_CLIENT_ID<br/>AZURE_CREDENTIALS<br/>AZURE_SUBSCRIPTION_ID<br/>AZURE_TENANT_ID|
+|pbd-aws.yml|Builds, bublishes, and deploys project to AWS|None Blocking|AWS_ACCESS_KEY_ID<br/>AWS_KUBE_CONFIG_DATA_STAGING<br/>AWS_SECRET_ACCESS_KEY|
+
+#### Blocking vs. None Blocking
+All workflow will block if the job itself fails to run.  However blocking vs. none blocking referes to whether there is a blocking step as part of the workflow.  A blocking step will prevent a push or merge even whent the workflow successfully runs.
+
+
 ### Without Docker
+
+
 -  To run and monitor changes:
 ```
 npm run serve
