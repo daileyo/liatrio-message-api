@@ -1,0 +1,51 @@
+name: Checkout and deploy to GCP
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCP_SERVICE:  gcp-sa-liatrio
+  GCP_ZONE: us-central1
+  GCP_REGION:  us-central1-a
+  GCP_CLUSTER: gcp-proj-liatrio-message-api-gke
+
+jobs:
+  setup-deploy:
+    name: setup and deploy
+    runs-on: ubuntu-latest
+    environment: proto
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - uses: google-github-actions/setup-gcloud@main
+      with:
+        service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+        project_id: ${{ secrets.GCP_PROJECT }}
+
+    # Configure Docker to use the gcloud command-line tool as a credential
+    # helper for authentication
+    - run: |-
+        gcloud --quiet components install kubectl
+        gcloud --quiet auth configure-docker
+
+    # Get the GKE credentials so we can deploy to the cluster
+    - uses: google-github-actions/get-gke-credentials@main
+      with:
+        cluster_name: ${{ env.GCP_CLUSTER }}
+        location: ${{ env.GCP_ZONE }}
+        credentials: ${{ secrets.GCP_CREDENTIALS }}
+
+    - name: Test
+      run: |-
+        docker pull daileyo/liatrio-api:latest
+    # Deploy the Docker image to the GKE cluster
+    # TODO verify deployment succss
+    - name: Deploy
+      run: |-
+        kubectl apply -f manifests/gcp-deployment.yml
+        kubectl apply -f manifests/service.yml
+        kubectl get services -o wide

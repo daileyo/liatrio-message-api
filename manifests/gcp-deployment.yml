@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liatrio-message-api-deployment
+  labels:
+    app: liatrio-message-api
+spec:
+  selector:
+    matchLabels:
+      app: liatrio-message-api
+  progressDeadlineSeconds: 1800
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: liatrio-message-api
+    spec:
+      containers:
+      - name: liatrio-message-api
+        image: daileyo/liatrio-api:latest
+        ports: 
+        - containerPort: 4242
+        imagePullPolicy: Always
