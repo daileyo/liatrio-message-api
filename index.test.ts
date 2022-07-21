@@ -21,7 +21,7 @@ describe("Default index test", () => {
 describe("Testing index hello", () => {
     it("should be found and return hello", () => {
         const word = hello();
-        expect(word).toBe('Hello');
+        expect(word).toBe('goodbye');
     })
 })
 
